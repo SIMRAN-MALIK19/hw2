@@ -32,4 +32,20 @@ public class Transaction {
     return sdf.format(new Date());
   }
 
+  /*public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Transaction transaction = (Transaction) o;
+
+    return getAmount().equals(transaction.getAmount())
+            && getCategory().equals(transaction.getCategory())
+            && getTimestamp().equals(transaction.getTimestamp());
+  }*/
+
 }

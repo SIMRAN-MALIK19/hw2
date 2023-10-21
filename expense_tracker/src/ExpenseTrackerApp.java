@@ -1,11 +1,13 @@
+import java.util.List;
+import java.util.Optional;
+
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import controller.ExpenseTrackerController;
+import controller.TransactionFilter;
 import model.ExpenseTrackerModel;
-import view.ExpenseTrackerView;
 import model.Transaction;
-import controller.InputValidation;
+import view.ExpenseTrackerView;
 
 public class ExpenseTrackerApp {
 
@@ -31,9 +33,20 @@ public class ExpenseTrackerApp {
       if (!added) {
         JOptionPane.showMessageDialog(view, "Invalid amount or category entered");
         view.toFront();
+        added=true;
+      }
+
+    });
+    //creating action listener for apply filter button
+    view.getApplyFilterBtn().addActionListener(e -> {
+
+      
+      Optional<TransactionFilter> filter = view.ret_filter();
+      if (filter.isPresent()) { //performing input validation using ret_filter
+        List<Transaction> transactionList = controller.applyFilter(filter.get()); //calling applyFilter method and generating a list of filtered transactions
+        view.getHighlight(transactionList);//calling getHighlight to highLight filtered rows
       }
     });
-
   }
-
 }
+
